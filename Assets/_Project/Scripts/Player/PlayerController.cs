@@ -87,16 +87,18 @@ namespace Scripts.Player
             _moveX = context.ReadValue<Vector2>().x;
             
             // handle sprite facing direction
-            if (_moveX > 0 && !_facingRight)
+            if ((_moveX > 0 && !_facingRight) || (_moveX < 0 && _facingRight))
             {
-                _facingRight = true;
-                playerMesh.transform.localScale = new Vector2(_playerScale.x, _playerScale.y);
+                Flip();
             }
-            else if (_moveX < 0 && _facingRight)
-            {
-                _facingRight = false;
-                playerMesh.transform.localScale = new Vector2(-_playerScale.x, _playerScale.y);
-            }
+            
+        }
+
+        void Flip()
+        {
+            _facingRight = !_facingRight;
+            _playerScale.x *= -1;
+            playerMesh.transform.localScale = _playerScale;
         }
         void OnJump(InputAction.CallbackContext context) => _jumpPressed = true;
 
