@@ -48,8 +48,12 @@
     <Analyzer Include="D:\Programs\Unity\Editors\6000.2.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Project\Utilities\Sensors\GroundSensor2D.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\_Project\Scripts\Input\PlayerInputAdapter.cs" />
     <Compile Include="Assets\_Project\Scripts\Input\GameInput.cs" />
+    <Compile Include="Assets\_Project\Scripts\Player\PlayerJump.cs" />
+    <Compile Include="Assets\_Project\Scripts\Player\PlayerMovement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

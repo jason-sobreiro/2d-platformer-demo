@@ -574,6 +574,10 @@ GameObject:
   - component: {fileID: 1684570659}
   - component: {fileID: 1684570658}
   - component: {fileID: 1684570660}
+  - component: {fileID: 1684570664}
+  - component: {fileID: 1684570663}
+  - component: {fileID: 1684570662}
+  - component: {fileID: 1684570661}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -713,15 +717,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f43b89e497cd11469d05b0354a0b3d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerController
-  playerRb: {fileID: 1684570659}
-  gameInput: {fileID: 1684570658}
-  moveSpeed: 5
-  jumpForce: 10
+  _inputAdapter: {fileID: 1684570664}
+  _playerMovement: {fileID: 1684570663}
+  _playerJump: {fileID: 1684570662}
+--- !u!114 &1684570661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684570655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8708e64e6fbf6e745893b6bcebed47d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GroundSensor2D
+  groundCheckPoint: {fileID: 1890115956}
+  groundCheckRadius: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  groundCheck: {fileID: 674889859}
-  playerMesh: {fileID: 2022659008}
+--- !u!114 &1684570662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684570655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f658f6e6c216f4e8060407d185f94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerJump
+  _playerRb: {fileID: 1684570659}
+  _jumpForce: 10
+  _groundSensor: {fileID: 1684570661}
+--- !u!114 &1684570663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684570655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e49a27b789d4849810f690c3fcf015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerMovement
+  _playerRb: {fileID: 1684570659}
+  _moveSpeed: 5
+  _playerMesh: {fileID: 2022659009}
+--- !u!114 &1684570664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684570655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f981a27b3b9fd4b9ee1415caf3b327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerInputAdapter
 --- !u!1 &1890115955
 GameObject:
   m_ObjectHideFlags: 0

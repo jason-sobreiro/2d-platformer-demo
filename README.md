@@ -12,8 +12,17 @@ This repository is a portfolio piece emphasizing readability, low coupling, and 
 
 * Unity 6 • C# • New Input System
 * Deterministic physics loop with `FixedUpdate`
-* Simple grounded check
-* Minimal, scalable folder layout
+* Simple, reusable ground check
+* Small, focused components (separation of concerns)
+
+## Current Architecture — Milestone 2
+The initial monolithic `PlayerController` was split into small components:
+- **PlayerInputAdapter** – reads `PlayerInput` and raises high-level events:
+  - `OnMoveX(float)`, `OnJump()`
+- **PlayerController** – thin orchestrator (wires input → abilities)
+- **PlayerMovement** – horizontal movement (+ sprite flip)
+- **PlayerJump** – jump request/consumption with grounded check
+- **GroundSensor2D** (reusable) – overlap-based ground detection
 
 ## Folder Structure (lean)
 
@@ -26,10 +35,16 @@ Assets/
     Scenes/
       20_Gameplay.unity
     Scripts/
-      Player/
-        PlayerController.cs
       Input/
         GameInput.cs
+        PlayerInputAdapter.cs
+      Player/
+        PlayerController.cs
+        PlayerMovement.cs
+        PlayerJump.cs
+      Utilities/
+        Sensors/
+          GroundSensor2D.cs
 ```
 
 ## Getting Started
@@ -46,7 +61,7 @@ Assets/
 ## Milestones & Roadmap
 
 * ✅ **Milestone 1 (now):** Single-script `PlayerController` (move + jump).
-* ⏭️ **Milestone 2:** Architecture improvements (separating responsibilities, clearer boundaries).
+* ✅ **Milestone 2:** Split into input adapter, controller (orchestrator), movement, jump, and reusable ground sensor
 * ⏭️ **Milestone 3:** New feature: **Shooting** (projectiles or hitscan), basic VFX/SFX.
 * ⏭️ **Milestone 4:** Enemies, hazards, checkpoints, basic UI (pause/restart).
 * ⏭️ **Milestone 5:** Polish pass (animation states, coyote time, jump buffering, camera tweaks).
@@ -57,7 +72,7 @@ Assets/
 
   * `Move` (Vector2)
   * `Jump` (Button)
-* Physics tuned via `Rigidbody2D` velocity writes in `FixedUpdate`.
+* Physics tuned via `Rigidbody2D` linearVelocity writes in `FixedUpdate`.
 
 ## Commit Philosophy
 
