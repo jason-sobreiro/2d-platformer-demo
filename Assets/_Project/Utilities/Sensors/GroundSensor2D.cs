@@ -17,7 +17,10 @@ namespace Scripts.Utilities.Sensors
 #if UNITY_EDITOR
         void OnDrawGizmosSelected()
         {
-            if (groundCheckPoint == null) return;
+            if (groundCheckPoint == null)
+            {
+                return;
+            }
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);

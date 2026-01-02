@@ -10,8 +10,19 @@ namespace Scripts.Player
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private Transform _playerMesh;
 
+        private Vector3 _meshScale;
+
         private bool _facingRight = true;
         private float _moveX;
+
+        private void Awake()
+        {
+            // store the initial scale for flipping
+            if (_playerMesh != null)
+            {
+                _meshScale = _playerMesh.localScale;
+            }
+        }
 
         public void SetMove(float moveX)
         {
@@ -22,23 +33,22 @@ namespace Scripts.Player
         {
             // switch the facing direction
             _facingRight = !_facingRight;
-            Vector3 scale = _playerMesh.localScale;
-            scale.x *= -1;
-            _playerMesh.localScale = scale;
+            _meshScale.x *= -1;
+            _playerMesh.localScale = _meshScale;
         }
 
         public void UpdateFacingDirection(float moveX)
         {
 
             // flip the player mesh based on movement direction
-            if (moveX < 0 && _facingRight)
+            bool movingLeft = moveX < 0 && _facingRight;
+            bool movingRight = moveX > 0 && !_facingRight;
+
+            if (movingLeft || movingRight)
             {
                 Flip();
             }
-            else if (moveX > 0 && !_facingRight)
-            {
-                Flip();
-            }
+           
         }
 
         void FixedUpdate()
@@ -46,7 +56,6 @@ namespace Scripts.Player
 
             // safety checks
             if (_playerRb == null) return;
-            //if (_moveX == 0) return;
 
             Vector3 velocity = _playerRb.linearVelocity;
             velocity.x = _moveX * _moveSpeed;
