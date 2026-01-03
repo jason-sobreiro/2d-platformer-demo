@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ab040a4729d23247b4c8dfac46f1cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.Camera.CameraController
-  player: {fileID: 1684570655}
+  player: {fileID: 1684570657}
   cameraSpeed: 3
   offsetAmount: 5
   smoothTime: 3
@@ -873,6 +873,7 @@ GameObject:
   - component: {fileID: 1684570663}
   - component: {fileID: 1684570662}
   - component: {fileID: 1684570661}
+  - component: {fileID: 1684570665}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1012,9 +1013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f43b89e497cd11469d05b0354a0b3d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerController
-  _inputAdapter: {fileID: 1684570664}
-  _playerMovement: {fileID: 1684570663}
-  _playerJump: {fileID: 1684570662}
 --- !u!114 &1684570661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,8 +1042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f658f6e6c216f4e8060407d185f94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerJump
-  _playerRb: {fileID: 1684570659}
-  _jumpForce: 10
+  _jumpForce: 15
   _groundSensor: {fileID: 1684570661}
   _fallGravityMultiplier: 2.5
 --- !u!114 &1684570663
@@ -1060,7 +1057,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e49a27b789d4849810f690c3fcf015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerMovement
-  _playerRb: {fileID: 1684570659}
   _moveSpeed: 10
   _playerMesh: {fileID: 2022659009}
 --- !u!114 &1684570664
@@ -1075,6 +1071,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f981a27b3b9fd4b9ee1415caf3b327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerInputAdapter
+--- !u!114 &1684570665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684570655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508c60d32fb769a48bc533d0b9ddc30e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Scripts.Player.PlayerAttack
 --- !u!1 &1754759008
 GameObject:
   m_ObjectHideFlags: 0

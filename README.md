@@ -22,7 +22,9 @@ The initial monolithic `PlayerController` was split into small components:
 - **PlayerController** – thin orchestrator (wires input → abilities)
 - **PlayerMovement** – horizontal movement (+ sprite flip)
 - **PlayerJump** – jump request/consumption with grounded check
+- **PlayerAttack** - Checks if player is holding the attack button 
 - **GroundSensor2D** (reusable) – overlap-based ground detection
+- **CameraController** - Follows the player on the scene
 
 ## Folder Structure (lean)
 
@@ -35,10 +37,13 @@ Assets/
     Scenes/
       20_Gameplay.unity
     Scripts/
+      Camera/
+        CameraController.cs
       Input/
         GameInput.cs
         PlayerInputAdapter.cs
       Player/
+        PlayerAttack.cs
         PlayerController.cs
         PlayerMovement.cs
         PlayerJump.cs
@@ -53,16 +58,17 @@ Assets/
 2. Open `Assets/_Project/Scenes/20_Gameplay.unity`.
 3. Press Play.
 
-### Controls
+### Controls (Keyboard & Mouse)
 
 * **A/D** or **←/→**: Move
 * **Space**: Jump
+* **Left Mouse Click**: Attack
 
 ## Milestones & Roadmap
 
-* ✅ **Milestone 1 (now):** Single-script `PlayerController` (move + jump).
-* ✅ **Milestone 2:** Split into input adapter, controller (orchestrator), movement, jump, and reusable ground sensor
-* ⏭️ **Milestone 3:** New feature: **Shooting** (projectiles or hitscan), basic VFX/SFX.
+* ✅ **Milestone 1:** Single-script `PlayerController` (move + jump).
+* ✅ **Milestone 2:** Split into input adapter, controller (orchestrator), movement, jump, reusable ground sensor and camera script.
+* ⏭️ **Milestone 3 (current):** New feature: **Shooting** (projectiles), new sprites and basic animations.
 * ⏭️ **Milestone 4:** Enemies, hazards, checkpoints, basic UI (pause/restart).
 * ⏭️ **Milestone 5:** Polish pass (animation states, coyote time, jump buffering, camera tweaks).
 
@@ -72,7 +78,17 @@ Assets/
 
   * `Move` (Vector2)
   * `Jump` (Button)
-* Physics tuned via `Rigidbody2D` linearVelocity writes in `FixedUpdate`.
+  * `Attack` (
+    Button)
+* Character Physics tuned via `Rigidbody2D` linearVelocity writes in `FixedUpdate`.
+
+## Coding Rules
+
+* Always use curly braces, even in simple "if" statements.
+* Use the C# standard for opening curly braces: on a new line.
+* Avoid "nesting ifs": prefer using early return pattern, also known as a guard clause, and safety checks.
+* Avoid excessive code coupling.
+* Use #region/#endregion to organize your code.
 
 ## Commit Philosophy
 

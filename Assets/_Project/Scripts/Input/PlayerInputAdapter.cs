@@ -12,12 +12,15 @@ namespace Scripts.Input
         #region Events
         public event Action<float> OnMoveX;
         public event Action OnJump;
+        public event Action OnStartAttack;
+        public event Action OnStopAttack;
         #endregion
 
         #region Private Fields
         private PlayerInput _playerInput;
         private InputAction _moveAction;
         private InputAction _jumpAction;
+        private InputAction _attackAction;
         #endregion
 
         #region Handlers
@@ -31,6 +34,12 @@ namespace Scripts.Input
 
         private void HandleJumpPerformed(InputAction.CallbackContext context)
             => OnJump?.Invoke();
+
+        private void HandleAttackPerformed(InputAction.CallbackContext context)
+            => OnStartAttack?.Invoke();
+
+        private void HandleAttackCanceled(InputAction.CallbackContext context)
+            => OnStopAttack?.Invoke();
 
         #endregion
 
@@ -46,6 +55,7 @@ namespace Scripts.Input
             var actions = _playerInput.actions;
             _moveAction = actions["Move"];
             _jumpAction = actions["Jump"];
+            _attackAction = actions["Attack"];
 
             // subscribe to input events
             _moveAction.performed += HandleMovePerformed;
@@ -54,6 +64,10 @@ namespace Scripts.Input
 
             _jumpAction.performed += HandleJumpPerformed;
             _jumpAction.Enable();
+
+            _attackAction.performed += HandleAttackPerformed;
+            _attackAction.canceled += HandleAttackCanceled;
+            _attackAction.Enable();
         }
 
         void OnDisable()
@@ -68,6 +82,10 @@ namespace Scripts.Input
 
             _jumpAction.performed -= HandleJumpPerformed;
             _jumpAction.Disable();
+
+            _attackAction.performed -= HandleAttackPerformed;
+            _attackAction.canceled -= HandleAttackCanceled;
+            _attackAction.Disable();
         }
 
         void OnDestroy()
