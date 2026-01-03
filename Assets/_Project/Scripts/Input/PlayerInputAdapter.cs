@@ -9,22 +9,32 @@ namespace Scripts.Input
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerInputAdapter : MonoBehaviour
     {
+        #region Events
         public event Action<float> OnMoveX;
         public event Action OnJump;
+        #endregion
 
+        #region Private Fields
         private PlayerInput _playerInput;
         private InputAction _moveAction;
         private InputAction _jumpAction;
+        #endregion
 
-        // Handlers nomeados
-        private void HandleMovePerformed(InputAction.CallbackContext context) 
+        #region Handlers
+
+        // Handlers
+        private void HandleMovePerformed(InputAction.CallbackContext context)
             => OnMoveX?.Invoke(context.ReadValue<Vector2>().x);
 
-        private void HandleMoveCanceled(InputAction.CallbackContext context) 
+        private void HandleMoveCanceled(InputAction.CallbackContext context)
             => OnMoveX?.Invoke(0f);
 
-        private void HandleJumpPerformed(InputAction.CallbackContext context) 
+        private void HandleJumpPerformed(InputAction.CallbackContext context)
             => OnJump?.Invoke();
+
+        #endregion
+
+        #region Unity Methods
 
         void Awake()
         {
@@ -65,5 +75,7 @@ namespace Scripts.Input
             OnMoveX = null;
             OnJump = null;
         }
+        
+        #endregion
     }
 }

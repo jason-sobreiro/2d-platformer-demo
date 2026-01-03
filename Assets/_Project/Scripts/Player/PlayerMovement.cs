@@ -3,26 +3,61 @@ using UnityEngine;
 namespace Scripts.Player
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private Rigidbody2D _playerRb;
+        #region Fields
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private Transform _playerMesh;
 
+        #endregion
+
+        #region Private Fields
+
+        private Rigidbody2D _playerRb;
         private Vector3 _meshScale;
 
         private bool _facingRight = true;
         private float _moveX;
 
+        #endregion
+
+        #region Unity Methods
+
         private void Awake()
         {
-            // store the initial scale for flipping
+            _playerRb = GetComponent<Rigidbody2D>();
+
             if (_playerMesh != null)
             {
                 _meshScale = _playerMesh.localScale;
             }
         }
+
+        void FixedUpdate()
+        {
+
+            // safety check
+            if (_playerRb == null)
+            {
+                return;
+            }
+
+            Vector3 velocity = _playerRb.linearVelocity;
+            velocity.x = _moveX * _moveSpeed;
+            _playerRb.linearVelocity = velocity;
+        }
+
+        void OnValidate()
+        {
+            if (_playerRb == null)
+            {
+                _playerRb = GetComponent<Rigidbody2D>();
+            }
+        }
+
+        #endregion
+
+        #region Script Methods
 
         public void SetMove(float moveX)
         {
@@ -48,28 +83,10 @@ namespace Scripts.Player
             {
                 Flip();
             }
-           
+
         }
 
-        void FixedUpdate()
-        {
-
-            // safety checks
-            if (_playerRb == null) return;
-
-            Vector3 velocity = _playerRb.linearVelocity;
-            velocity.x = _moveX * _moveSpeed;
-            _playerRb.linearVelocity = velocity;
-        }
-
-        // Editor-time helper: auto-assign Rigidbody2D when possible
-        void OnValidate()
-        {
-            if (_playerRb == null)
-            {
-                _playerRb = GetComponent<Rigidbody2D>();
-            }
-        }
-
+        #endregion
+        
     }
 }

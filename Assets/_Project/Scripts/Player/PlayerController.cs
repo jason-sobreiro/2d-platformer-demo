@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Scripts.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,15 +6,20 @@ using UnityEngine.InputSystem;
 namespace Scripts.Player
 {
     [DisallowMultipleComponent]
+    [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(PlayerInputAdapter))]
     [RequireComponent(typeof(PlayerMovement))]
     [RequireComponent(typeof(PlayerJump))]
     public class PlayerController : MonoBehaviour
     {
-        [Header("Components References")]
-        [SerializeField] private PlayerInputAdapter _inputAdapter;
-        [SerializeField] private PlayerMovement _playerMovement;
-        [SerializeField] private PlayerJump _playerJump;
+        #region Private Fields
+        private PlayerInputAdapter _inputAdapter;
+        private PlayerMovement _playerMovement;
+        private PlayerJump _playerJump;
+
+        #endregion
+
+        #region Unity Methods
 
         void Awake()
         {
@@ -45,25 +51,20 @@ namespace Scripts.Player
             _inputAdapter.OnMoveX -= _playerMovement.UpdateFacingDirection;
             _inputAdapter.OnJump -= _playerJump.RequestJump;
         }
+        #endregion
+
+        #region Script Methods
 
         void Init()
         {
-            // auto-assign components when possible
-            if (_inputAdapter == null)
-            {
-                _inputAdapter = GetComponent<PlayerInputAdapter>();
-            }
 
-            if (_playerMovement == null)
-            {
-                _playerMovement = GetComponent<PlayerMovement>();
-            }
-            
-            if (_playerJump == null)
-            {
-                _playerJump = GetComponent<PlayerJump>();
-            }
+            _inputAdapter = GetComponent<PlayerInputAdapter>();
+            _playerMovement = GetComponent<PlayerMovement>();
+            _playerJump = GetComponent<PlayerJump>();
+
         }
+        
+        #endregion
 
     }
 }
