@@ -15,41 +15,41 @@ This repository is a portfolio piece emphasizing readability, low coupling, and 
 * Simple, reusable ground check
 * Small, focused components (separation of concerns)
 
-## Current Architecture — Milestone 2
-The initial monolithic `PlayerController` was split into small components:
-- **PlayerInputAdapter** – reads `PlayerInput` and raises high-level events:
-  - `OnMoveX(float)`, `OnJump()`
-- **PlayerController** – thin orchestrator (wires input → abilities)
+## Current Architecture — Milestone 3
+The initial monolithic `PlayerController` was split and extended with shooting and animation states:
+- **PlayerInputAdapter** – reads `PlayerInput` and raises high-level events: `OnMoveX(float)`, `OnJump()`, `OnStartAttack()`, `OnStopAttack()`
+- **PlayerController** – thin orchestrator wiring input to movement, jump, attack, facing updates, and attack animation flags
 - **PlayerMovement** – horizontal movement (+ sprite flip)
 - **PlayerJump** – jump request/consumption with grounded check
-- **PlayerAttack** - Checks if player is holding the attack button 
+- **PlayerAttack** – toggles attack state, tracks facing, and spawns projectiles from the correct barrel on a timer
+- **Projectile** – moves straight using `Rigidbody2D`, flips direction from the attacker, despawns on hit or when offscreen
+- **PlayerAnimation** – resolves `Idle/Run/Jump/Attack/Run_Attack` based on velocity and attack flag; plays Animator states
 - **GroundSensor2D** (reusable) – overlap-based ground detection
-- **CameraController** - Follows the player on the scene
+- **CameraController** – follows the player in the scene
 
 ## Folder Structure (lean)
 
 ```
 Assets/
   _Project/
+    Animations/
+      Player/
+      Projectile/
     Data/
       Input/
-        GameInput.inputactions
+    Materials/
+      Physics Materials/
+    Prefabs/
     Scenes/
-      20_Gameplay.unity
     Scripts/
+      Animations States/
+        Player/
       Camera/
-        CameraController.cs
       Input/
-        GameInput.cs
-        PlayerInputAdapter.cs
       Player/
-        PlayerAttack.cs
-        PlayerController.cs
-        PlayerMovement.cs
-        PlayerJump.cs
+      Projectile/
       Utilities/
         Sensors/
-          GroundSensor2D.cs
 ```
 
 ## Getting Started
@@ -78,8 +78,7 @@ Assets/
 
   * `Move` (Vector2)
   * `Jump` (Button)
-  * `Attack` (
-    Button)
+  * `Attack` (Button)
 * Character Physics tuned via `Rigidbody2D` linearVelocity writes in `FixedUpdate`.
 
 ## Coding Rules
@@ -92,10 +91,15 @@ Assets/
 
 ## Commit Philosophy
 
-Start **simple**, ship a working baseline, then iterate with small, focused commits that either:
+Start **simple**, ship a working baseline, then iterate with focused commits that either:
 
 * Add a feature, or
 * Improve architecture/clarity without changing behavior.
+
+Commits can be:
+
+* Small: for code fixes and improvements
+* Large: for new features added after testing
 
 ## License
 
