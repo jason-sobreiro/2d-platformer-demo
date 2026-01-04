@@ -52,10 +52,13 @@
     <Compile Include="Assets\_Project\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\_Project\Scripts\Input\PlayerInputAdapter.cs" />
     <Compile Include="Assets\_Project\Scripts\Camera\CameraController.cs" />
+    <Compile Include="Assets\_Project\Scripts\Projectile\Projectile.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerAttack.cs" />
+    <Compile Include="Assets\_Project\Scripts\Animation States\Player\PlayerStates.cs" />
     <Compile Include="Assets\_Project\Scripts\Input\GameInput.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerJump.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\_Project\Scripts\Player\PlayerAnimation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

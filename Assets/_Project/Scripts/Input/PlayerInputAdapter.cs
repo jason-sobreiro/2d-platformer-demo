@@ -92,6 +92,8 @@ namespace Scripts.Input
         {
             OnMoveX = null;
             OnJump = null;
+            OnStartAttack = null;
+            OnStopAttack = null;
         }
         
         #endregion

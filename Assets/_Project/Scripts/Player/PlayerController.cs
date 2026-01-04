@@ -11,6 +11,7 @@ namespace Scripts.Player
     [RequireComponent(typeof(PlayerMovement))]
     [RequireComponent(typeof(PlayerJump))]
     [RequireComponent(typeof(PlayerAttack))]
+    [RequireComponent(typeof(PlayerAnimation))]
     public class PlayerController : MonoBehaviour
     {
         #region Private Fields
@@ -18,6 +19,7 @@ namespace Scripts.Player
         private PlayerMovement _playerMovement;
         private PlayerJump _playerJump;
         private PlayerAttack _playerAttack;
+        private PlayerAnimation _playerAnimation;
 
         #endregion
 
@@ -38,9 +40,12 @@ namespace Scripts.Player
 
             _inputAdapter.OnMoveX += _playerMovement.SetMove;
             _inputAdapter.OnMoveX += _playerMovement.UpdateFacingDirection;
+            _inputAdapter.OnMoveX += _playerAttack.UpdatingFacingDirection;
             _inputAdapter.OnJump += _playerJump.RequestJump;
-            _inputAdapter.OnStartAttack += _playerAttack.StartAttack;
-            _inputAdapter.OnStopAttack += _playerAttack.StopAttack;
+            _inputAdapter.OnStartAttack += _playerAttack.SetAttackState;
+            _inputAdapter.OnStartAttack += _playerAnimation.SetAttackState;
+            _inputAdapter.OnStopAttack += _playerAttack.SetAttackState;
+            _inputAdapter.OnStopAttack += _playerAnimation.SetAttackState;
         }
 
         void OnDisable()
@@ -53,9 +58,12 @@ namespace Scripts.Player
 
             _inputAdapter.OnMoveX -= _playerMovement.SetMove;
             _inputAdapter.OnMoveX -= _playerMovement.UpdateFacingDirection;
+            _inputAdapter.OnMoveX -= _playerAttack.UpdatingFacingDirection;
             _inputAdapter.OnJump -= _playerJump.RequestJump;
-            _inputAdapter.OnStartAttack -= _playerAttack.StartAttack;
-            _inputAdapter.OnStopAttack -= _playerAttack.StopAttack;
+            _inputAdapter.OnStartAttack -= _playerAttack.SetAttackState;
+            _inputAdapter.OnStartAttack -= _playerAnimation.SetAttackState;
+            _inputAdapter.OnStopAttack -= _playerAttack.SetAttackState;
+            _inputAdapter.OnStopAttack -= _playerAnimation.SetAttackState;
         }
         #endregion
 
@@ -68,6 +76,7 @@ namespace Scripts.Player
             _playerMovement = GetComponent<PlayerMovement>();
             _playerJump = GetComponent<PlayerJump>();
             _playerAttack = GetComponent<PlayerAttack>();
+            _playerAnimation = GetComponent<PlayerAnimation>();
 
         }
 

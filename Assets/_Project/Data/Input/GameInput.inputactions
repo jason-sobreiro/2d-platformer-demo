@@ -104,7 +104,7 @@
                 {
                     "name": "left",
                     "id": "b8552868-7df1-42d3-8196-5b71d59e15d1",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
