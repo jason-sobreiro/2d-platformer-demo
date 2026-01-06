@@ -41,6 +41,8 @@ namespace Scripts.Player
             _inputAdapter.OnMoveX += _playerMovement.SetMove;
             _inputAdapter.OnMoveX += _playerMovement.UpdateFacingDirection;
             _inputAdapter.OnMoveX += _playerAttack.UpdatingFacingDirection;
+            _inputAdapter.OnLookY += _playerAttack.UpdatingLookDirection;
+            _inputAdapter.OnLookY += HandleLookDirection;
             _inputAdapter.OnJump += _playerJump.RequestJump;
             _inputAdapter.OnStartAttack += _playerAttack.SetAttackState;
             _inputAdapter.OnStartAttack += _playerAnimation.SetAttackState;
@@ -59,6 +61,8 @@ namespace Scripts.Player
             _inputAdapter.OnMoveX -= _playerMovement.SetMove;
             _inputAdapter.OnMoveX -= _playerMovement.UpdateFacingDirection;
             _inputAdapter.OnMoveX -= _playerAttack.UpdatingFacingDirection;
+            _inputAdapter.OnLookY -= _playerAttack.UpdatingLookDirection;
+            _inputAdapter.OnLookY -= HandleLookDirection;
             _inputAdapter.OnJump -= _playerJump.RequestJump;
             _inputAdapter.OnStartAttack -= _playerAttack.SetAttackState;
             _inputAdapter.OnStartAttack -= _playerAnimation.SetAttackState;
@@ -78,6 +82,11 @@ namespace Scripts.Player
             _playerAttack = GetComponent<PlayerAttack>();
             _playerAnimation = GetComponent<PlayerAnimation>();
 
+        }
+
+        void HandleLookDirection(float lookY)
+        {
+            _playerAnimation.SetAimingUpwardState(lookY > 0.1f);
         }
 
         #endregion

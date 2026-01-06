@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     private Rigidbody2D _projectileRb;
     [SerializeField] private float _speed = 10f;
     private float _direction = 1f;
+    private bool _isAimingUpward = false;
 
     void Awake()
     {
@@ -21,6 +22,13 @@ public class Projectile : MonoBehaviour
         }
 
         // Move the projectile forward
+        if (_isAimingUpward)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f,90f);
+            _projectileRb.linearVelocity = transform.right * _speed;
+            return;
+        }
+
         _projectileRb.linearVelocity = transform.right * _speed * _direction;
     }
 
@@ -30,10 +38,11 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void OnChangeDirection(bool isFacingRight)
+    public void OnChangeDirection(bool isFacingRight, bool isAimingUpward)
     {
 
         _direction = isFacingRight ? 1f : -1f;
+        _isAimingUpward = isAimingUpward;
     }
 
     void OnBecameInvisible()

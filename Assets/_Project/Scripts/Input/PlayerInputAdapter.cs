@@ -11,6 +11,7 @@ namespace Scripts.Input
     {
         #region Events
         public event Action<float> OnMoveX;
+        public event Action<float> OnLookY;
         public event Action OnJump;
         public event Action OnStartAttack;
         public event Action OnStopAttack;
@@ -28,6 +29,9 @@ namespace Scripts.Input
         // Handlers
         private void HandleMovePerformed(InputAction.CallbackContext context)
             => OnMoveX?.Invoke(context.ReadValue<Vector2>().x);
+
+        private void HandleLookPerformed(InputAction.CallbackContext context)
+            => OnLookY?.Invoke(context.ReadValue<Vector2>().y);
 
         private void HandleMoveCanceled(InputAction.CallbackContext context)
             => OnMoveX?.Invoke(0f);
@@ -60,6 +64,8 @@ namespace Scripts.Input
             // subscribe to input events
             _moveAction.performed += HandleMovePerformed;
             _moveAction.canceled += HandleMoveCanceled;
+            _moveAction.performed += HandleLookPerformed;
+            _moveAction.canceled += HandleLookPerformed;
             _moveAction.Enable();
 
             _jumpAction.performed += HandleJumpPerformed;
@@ -78,6 +84,8 @@ namespace Scripts.Input
             // unsubscribe from input events
             _moveAction.performed -= HandleMovePerformed;
             _moveAction.canceled -= HandleMoveCanceled;
+            _moveAction.performed -= HandleLookPerformed;
+            _moveAction.canceled -= HandleLookPerformed;
             _moveAction.Disable();
 
             _jumpAction.performed -= HandleJumpPerformed;
@@ -91,6 +99,7 @@ namespace Scripts.Input
         void OnDestroy()
         {
             OnMoveX = null;
+            OnLookY = null;
             OnJump = null;
             OnStartAttack = null;
             OnStopAttack = null;

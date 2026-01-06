@@ -12,8 +12,11 @@ namespace Scripts.Player
         [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private Transform _gunBarrelRight;
         [SerializeField] private Transform _gunBarrelLeft;
+        [SerializeField] private Transform _gunBarrelUpRight;
+        [SerializeField] private Transform _gunBarrelUpLeft;
         private Transform _gunBarrel;
         private bool _isFacingRight = true;
+        private bool _isAimingUpward = false;
 
         #region Unity Methods
         void Start()
@@ -54,7 +57,7 @@ namespace Scripts.Player
 
             GameObject projectile = Instantiate(_projectilePrefab, _gunBarrel.position, _gunBarrel.rotation);
             Projectile projScript = projectile.GetComponent<Projectile>();
-            projScript.OnChangeDirection(_isFacingRight);
+            projScript.OnChangeDirection(_isFacingRight, _isAimingUpward);
 
         }
 
@@ -69,11 +72,36 @@ namespace Scripts.Player
                 _gunBarrel = _gunBarrelRight;
                 return;
             }
-            
+
             if (moveX < 0f && _gunBarrel != _gunBarrelLeft)
             {
                 _isFacingRight = false;
                 _gunBarrel = _gunBarrelLeft;
+                return;
+            }
+        }
+        
+        public void UpdatingLookDirection(float lookY)
+        {
+
+            if (lookY > 0.1f && _gunBarrel != _gunBarrelUpRight && _isFacingRight)
+            {
+                _isAimingUpward = true;
+                _gunBarrel = _gunBarrelUpRight;
+                return;
+            }
+
+            if (lookY > 0.1f && _gunBarrel != _gunBarrelUpLeft && !_isFacingRight)
+            {
+                _isAimingUpward = true;
+                _gunBarrel = _gunBarrelUpLeft;
+                return;
+            }
+
+            if (lookY < 0.1f && _isAimingUpward)
+            {
+                _isAimingUpward = false;
+                _gunBarrel = _isFacingRight ? _gunBarrelRight : _gunBarrelLeft;
                 return;
             }
         }

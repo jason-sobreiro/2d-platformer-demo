@@ -9,8 +9,9 @@ public class PlayerAnimation : MonoBehaviour
     private Animator _playerAnimator;
     private Rigidbody2D _playerRb;
     private bool _isAttacking = false;
+    private bool _isAimingUpward = false;
 
-    private PlayerStates.AnimationState _currentState;
+    private PlayerStates.States _currentState;
 
     private const float speedYThreshold = 0.1f;
     private const float speedXThreshold = 0.01f;
@@ -42,24 +43,28 @@ public class PlayerAnimation : MonoBehaviour
         SetAnimationState(state);
     }
 
-    private PlayerStates.AnimationState ResolveState()
+    private PlayerStates.States ResolveState()
     {
         // jumping / falling
         if (IsAirborne())
         {
-            return PlayerStates.AnimationState.Jump;
+            return PlayerStates.States.Jump;
         }
 
-        // idle / stand attack
+        // idle / stand attack / attack up
         if (IsIdle())
         {
-            return _isAttacking ? PlayerStates.AnimationState.Attack
-                                : PlayerStates.AnimationState.Idle;
+            if (_isAttacking && _isAimingUpward)
+            {
+                return PlayerStates.States.Attack_Up;
+            }
+            return _isAttacking ? PlayerStates.States.Attack
+                                : PlayerStates.States.Idle;
         }
 
         // running / run attack
-        return _isAttacking ? PlayerStates.AnimationState.Run_Attack
-                            : PlayerStates.AnimationState.Run;
+        return _isAttacking ? PlayerStates.States.Run_Attack
+                            : PlayerStates.States.Run;
     }
 
     private bool IsAirborne()
@@ -73,7 +78,7 @@ public class PlayerAnimation : MonoBehaviour
         return Mathf.Abs(_playerRb.linearVelocityX) < speedXThreshold;
     }
 
-    private void SetAnimationState(PlayerStates.AnimationState newState)
+    private void SetAnimationState(PlayerStates.States newState)
     {
 
         // safety checks
@@ -97,6 +102,11 @@ public class PlayerAnimation : MonoBehaviour
         _isAttacking = !_isAttacking;
     }
 
+
+    public void SetAimingUpwardState(bool isAiming)
+    {
+        _isAimingUpward = isAiming;
+    }
 
 
     #endregion
