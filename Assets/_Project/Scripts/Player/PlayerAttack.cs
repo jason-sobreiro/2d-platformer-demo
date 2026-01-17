@@ -1,3 +1,4 @@
+using Scripts.States.Player;
 using UnityEngine;
 
 namespace Scripts.Player
@@ -5,7 +6,6 @@ namespace Scripts.Player
     [DisallowMultipleComponent]
     public class PlayerAttack : MonoBehaviour
     {
-
         private bool _isAttacking = false;
         [SerializeField] private float _attackDuration = 0.25f;
         private float _attackTimer;
@@ -17,6 +17,11 @@ namespace Scripts.Player
         private Transform _gunBarrel;
         private bool _isFacingRight = true;
         private bool _isAimingUpward = false;
+
+        #region Public Properties
+        public bool IsAttacking => _isAttacking;
+        public bool IsAimingUpward => _isAimingUpward;
+        #endregion
 
         #region Unity Methods
         void Start()
@@ -48,7 +53,6 @@ namespace Scripts.Player
 
         public void ShootProjectile()
         {
-
             if (_projectilePrefab == null)
             {
                 Debug.LogWarning("Projectile Prefab is not assigned in the inspector.");
@@ -58,7 +62,6 @@ namespace Scripts.Player
             GameObject projectile = Instantiate(_projectilePrefab, _gunBarrel.position, _gunBarrel.rotation);
             Projectile projScript = projectile.GetComponent<Projectile>();
             projScript.OnChangeDirection(_isFacingRight, _isAimingUpward);
-
         }
 
 

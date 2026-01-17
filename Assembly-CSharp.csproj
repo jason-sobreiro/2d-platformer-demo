@@ -42,7 +42,7 @@
     <UnityVersion>6000.2.8f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\Jason Sobreiro\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\Jason Sobreiro\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="D:\Programs\Unity\Editors\6000.2.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="D:\Programs\Unity\Editors\6000.2.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="D:\Programs\Unity\Editors\6000.2.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
@@ -54,7 +54,7 @@
     <Compile Include="Assets\_Project\Scripts\Camera\CameraController.cs" />
     <Compile Include="Assets\_Project\Scripts\Projectile\Projectile.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerAttack.cs" />
-    <Compile Include="Assets\_Project\Scripts\Animation States\Player\PlayerStates.cs" />
+    <Compile Include="Assets\_Project\Scripts\States\Player\PlayerStates.cs" />
     <Compile Include="Assets\_Project\Scripts\Input\GameInput.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerJump.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerMovement.cs" />
