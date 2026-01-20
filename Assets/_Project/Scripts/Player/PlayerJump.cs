@@ -1,6 +1,5 @@
-using System;
+using Scripts.Managers;
 using Scripts.Utilities.Sensors;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Scripts.Player
@@ -82,6 +81,7 @@ namespace Scripts.Player
                 velocity.y = _jumpForce;
                 _playerRb.linearVelocity = velocity;
                 _jumpRequested = false;
+                AudioManager.Instance.PlayJumpSFX();
             }
         }
 

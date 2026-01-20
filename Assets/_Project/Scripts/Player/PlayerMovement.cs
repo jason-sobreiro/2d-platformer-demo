@@ -1,4 +1,5 @@
-using Scripts.States.Player;
+using Scripts.Managers;
+using Scripts.Utilities.Sensors;
 using UnityEngine;
 
 namespace Scripts.Player
@@ -9,6 +10,11 @@ namespace Scripts.Player
         #region Fields
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private Transform _playerMesh;
+
+        [SerializeField] private float _walkCycleSpeed = 0.3f;
+        private float _walkCycleTimer = 0f;
+
+        private GroundSensor2D _groundSensor;
 
         #endregion
 
@@ -27,6 +33,7 @@ namespace Scripts.Player
         private void Awake()
         {
             _playerRb = GetComponent<Rigidbody2D>();
+            _groundSensor = GetComponent<GroundSensor2D>();
 
             if (_playerMesh != null)
             {
@@ -46,6 +53,10 @@ namespace Scripts.Player
             Vector3 velocity = _playerRb.linearVelocity;
             velocity.x = _moveX * _moveSpeed;
             _playerRb.linearVelocity = velocity;
+            _walkCycleTimer += Time.fixedDeltaTime;
+
+            PlayWalkCycleSound();
+
         }
 
         void OnValidate()
@@ -86,8 +97,28 @@ namespace Scripts.Player
             }
 
         }
+        
+        private void PlayWalkCycleSound()
+        {
+            
+            if(_groundSensor == null || !_groundSensor.IsGrounded())
+            {
+                return;
+            }
+
+            if (Mathf.Abs(_moveX) > 0.1f && _walkCycleTimer > _walkCycleSpeed)
+            {
+                _walkCycleTimer = 0f;
+                AudioManager.Instance.PlayWalkSFX();
+
+            }
+            
+            
+        }
+        
+
 
         #endregion
-        
+
     }
 }

@@ -48,13 +48,18 @@
     <Analyzer Include="D:\Programs\Unity\Editors\6000.2.8f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Project\Utilities\Sensors\GroundSensor2D.cs" />
+    <Compile Include="Assets\_Project\Scripts\Utilities\Singletons\Singleton.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\_Project\Scripts\Managers\AudioManager.cs" />
     <Compile Include="Assets\_Project\Scripts\Input\PlayerInputAdapter.cs" />
     <Compile Include="Assets\_Project\Scripts\Camera\CameraController.cs" />
+    <Compile Include="Assets\_Project\Scripts\Managers\MainManager.cs" />
+    <Compile Include="Assets\_Project\Scripts\Utilities\Sensors\GroundSensor2D.cs" />
     <Compile Include="Assets\_Project\Scripts\Projectile\Projectile.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerAttack.cs" />
+    <Compile Include="Assets\_Project\Scripts\Audio\SoundEffect.cs" />
     <Compile Include="Assets\_Project\Scripts\States\Player\PlayerStates.cs" />
+    <Compile Include="Assets\_Project\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\_Project\Scripts\Input\GameInput.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerJump.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerMovement.cs" />

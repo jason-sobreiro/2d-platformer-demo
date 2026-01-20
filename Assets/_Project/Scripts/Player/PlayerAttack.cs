@@ -1,3 +1,4 @@
+using Scripts.Managers;
 using Scripts.States.Player;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Scripts.Player
         private Transform _gunBarrel;
         private bool _isFacingRight = true;
         private bool _isAimingUpward = false;
+        private bool _isWalking = false;
 
         #region Public Properties
         public bool IsAttacking => _isAttacking;
@@ -33,13 +35,19 @@ namespace Scripts.Player
         {
 
             _attackTimer += Time.deltaTime;
-            if (_isAttacking && _attackTimer >= _attackDuration)
+
+            if (_isAimingUpward && _isWalking)
             {
-
-                ShootProjectile();
-                _attackTimer = 0f;
-
+                return;
             }
+            
+            if (_isAttacking && _attackTimer >= _attackDuration)
+                {
+
+                    ShootProjectile();
+                    _attackTimer = 0f;
+
+                }
         }
 
         #endregion
@@ -62,12 +70,15 @@ namespace Scripts.Player
             GameObject projectile = Instantiate(_projectilePrefab, _gunBarrel.position, _gunBarrel.rotation);
             Projectile projScript = projectile.GetComponent<Projectile>();
             projScript.OnChangeDirection(_isFacingRight, _isAimingUpward);
+            AudioManager.Instance.PlayAttackSFX();
         }
 
 
 
         public void UpdatingFacingDirection(float moveX)
         {
+
+            _isWalking = Mathf.Abs(moveX) > 0.1f;
 
             if (moveX > 0f && _gunBarrel != _gunBarrelRight)
             {
@@ -83,16 +94,18 @@ namespace Scripts.Player
                 return;
             }
         }
-        
+
         public void UpdatingLookDirection(float lookY)
         {
 
+        
+
             if (lookY > 0.1f && _gunBarrel != _gunBarrelUpRight && _isFacingRight)
-            {
-                _isAimingUpward = true;
-                _gunBarrel = _gunBarrelUpRight;
-                return;
-            }
+                {
+                    _isAimingUpward = true;
+                    _gunBarrel = _gunBarrelUpRight;
+                    return;
+                }
 
             if (lookY > 0.1f && _gunBarrel != _gunBarrelUpLeft && !_isFacingRight)
             {
@@ -108,8 +121,6 @@ namespace Scripts.Player
                 return;
             }
         }
-        
-        
         
 
         #endregion
