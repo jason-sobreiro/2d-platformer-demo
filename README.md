@@ -36,20 +36,25 @@ Assets/
       Player/
       Projectile/
     Data/
+      Audio Files/
       Input/
+      Scriptable Objects/
     Materials/
       Physics Materials/
     Prefabs/
     Scenes/
     Scripts/
-      Animations States/
-        Player/
+      Audio/
       Camera/
       Input/
+      Managers/
       Player/
       Projectile/
+      States/
+        Player/
       Utilities/
         Sensors/
+        Singletons/
 ```
 
 ## Getting Started
@@ -68,8 +73,8 @@ Assets/
 
 * ✅ **Milestone 1:** Single-script `PlayerController` (move + jump).
 * ✅ **Milestone 2:** Split into input adapter, controller (orchestrator), movement, jump, reusable ground sensor and camera script.
-* ⏭️ **Milestone 3 (current):** New feature: **Shooting** (projectiles), new sprites and basic animations.
-* ⏭️ **Milestone 4:** Enemies, hazards, checkpoints, basic UI (pause/restart).
+* ✅ **Milestone 3 (completed):** New feature: **Shooting** (projectiles), new sprites, sound effects and basic animations.
+* ⏭️ **Milestone 4 (not started yet):** Architeture improvements, enemies, hazards, checkpoints, basic UI (pause/restart).
 * ⏭️ **Milestone 5:** Polish pass (animation states, coyote time, jump buffering, camera tweaks).
 
 ## Tech Notes
