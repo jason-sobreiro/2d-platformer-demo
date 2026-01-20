@@ -1,8 +1,8 @@
-using System.ComponentModel;
+using System;
 using Scripts.Input;
 using Scripts.States.Player;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 namespace Scripts.Player
 {
@@ -13,14 +13,23 @@ namespace Scripts.Player
     [RequireComponent(typeof(PlayerJump))]
     [RequireComponent(typeof(PlayerAttack))]
     [RequireComponent(typeof(PlayerAnimation))]
+    [RequireComponent(typeof(PlayerHealth))]
     public class PlayerController : MonoBehaviour
     {
+
+        #region Player Events
+
+       // public event Action<int> OnHealthChanged;
+
+        #endregion
+
         #region Private Fields
         private PlayerInputAdapter _inputAdapter;
         private PlayerMovement _playerMovement;
         private PlayerJump _playerJump;
         private PlayerAttack _playerAttack;
         private Rigidbody2D _playerRb;
+        private PlayerHealth _playerHealth;
 
         private const float SpeedYThreshold = 0.1f;
         private const float SpeedXThreshold = 0.01f;
@@ -85,7 +94,7 @@ namespace Scripts.Player
             _playerJump = GetComponent<PlayerJump>();
             _playerAttack = GetComponent<PlayerAttack>();
             _playerRb = GetComponent<Rigidbody2D>();
-            
+
             PlayerStates.CurrentState = PlayerStates.States.Idle;
         }
 

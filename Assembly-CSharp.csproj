@@ -58,6 +58,7 @@
     <Compile Include="Assets\_Project\Scripts\Projectile\Projectile.cs" />
     <Compile Include="Assets\_Project\Scripts\Player\PlayerAttack.cs" />
     <Compile Include="Assets\_Project\Scripts\Audio\SoundEffect.cs" />
+    <Compile Include="Assets\_Project\Scripts\Player\PlayerHealth.cs" />
     <Compile Include="Assets\_Project\Scripts\States\Player\PlayerStates.cs" />
     <Compile Include="Assets\_Project\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\_Project\Scripts\Input\GameInput.cs" />
